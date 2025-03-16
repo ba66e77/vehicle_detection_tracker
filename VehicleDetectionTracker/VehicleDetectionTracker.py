@@ -10,6 +10,8 @@ from VehicleDetectionTracker.color_classifier.classifier import Classifier as Co
 from VehicleDetectionTracker.model_classifier.classifier import Classifier as ModelClassifier
 from datetime import datetime
 
+import matplotlib.image
+
 class VehicleDetectionTracker:
 
     def __init__(self, model_path="yolov8n.pt"):
@@ -151,6 +153,11 @@ class VehicleDetectionTracker:
             names = results[0].names
             # Get the annotated frame using results[0].plot() and encode it as base64
             annotated_frame = results[0].plot()
+
+            if len(track_ids) >= 2:
+                filename = f'frame_{frame_timestamp}.png'.replace(' ','_')
+                matplotlib.image.imsave(filename, annotated_frame)
+                print("saved frame")
 
             for box, track_id, cls, conf in zip(boxes, track_ids, clss, conf_list):
                 x, y, w, h = box
