@@ -290,11 +290,12 @@ class VehicleDetectionTracker:
                 print(f"Frame rate: {frame_rate} FPS")
                 timestamp = datetime.now()
                 response = self.process_frame(frame, timestamp)
-                if 'annotated_frame_base64' in response:
-                    annotated_frame = self._decode_image_base64(response['annotated_frame_base64'])
-                    if annotated_frame is not None:
+                # commenting out this block because I'm running headless
+                # if 'annotated_frame_base64' in response:
+                    # annotated_frame = self._decode_image_base64(response['annotated_frame_base64'])
+                    # if annotated_frame is not None:
                         # Display the annotated frame in a window
-                        cv2.imshow("Video Detection Tracker - YOLOv8 + bytetrack", annotated_frame)
+                        # cv2.imshow("Video Detection Tracker - YOLOv8 + bytetrack", annotated_frame)
                 # Call the callback with the response
                 result_callback(response)
                 # Break the loop if 'q' is pressed
